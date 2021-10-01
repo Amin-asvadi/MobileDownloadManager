@@ -2,6 +2,10 @@ package com.devillas.mdmdowlaodmanager.ui.customview;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -11,6 +15,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.devillas.mdmdowlaodmanager.R;
 
 public class ExpansionHeader extends FrameLayout {
 
@@ -28,14 +34,17 @@ public class ExpansionHeader extends FrameLayout {
 
     public ExpansionHeader(@NonNull Context context) {
         super(context);
+        init(context,null);
     }
 
     public ExpansionHeader(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        init(context,attrs);
     }
 
     public ExpansionHeader(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init(context,attrs);
     }
 
     private void toggleExpand() {
@@ -46,8 +55,12 @@ public class ExpansionHeader extends FrameLayout {
         setExpanded(expanded, true);
     }
 
-    private void setText(CharSequence charSequence){
+    private void setText(CharSequence charSequence) {
         textView.setText(charSequence);
+    }
+
+    public void setText(int resId) {
+        textView.setText(resId);
     }
 
 
@@ -75,4 +88,64 @@ public class ExpansionHeader extends FrameLayout {
         return animator;
     }
 
+    private void init(@NonNull Context context, @Nullable AttributeSet attrs) {
+
+        TypedArray a = null;
+        String text = null;
+        boolean expanded = false;
+        int textAppearanceId = -1;
+        if (attrs != null) {
+            a = context.obtainStyledAttributes(attrs, R.styleable.ExpansionHeader);
+            if (a != null) {
+                expanded = a.getBoolean(R.styleable.ExpansionHeader_expansion_expanded, false);
+                text = a.getString(R.styleable.ExpansionHeader_expansion_text);
+                textAppearanceId = a.getResourceId(R.styleable.ExpansionHeader_expansion_textAppearance, -1);
+            }
+
+        }
+        inflate(context, R.layout.expansion_header, this);
+        textView = findViewById(R.id._expansion_header_text);
+        arrow = findViewById(R.id._expansion_header_arrow);
+
+        textView.setText(text);
+        setTextAppearance(context, textAppearanceId);
+        setExpanded(expanded, false);
+        if (a != null)
+            a.recycle();
+
+    }
+
+    private void setTextAppearance(Context context, int resId) {
+        if (resId == -1) {
+            return;
+        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+            textView.setTextAppearance(context, resId);
+        else
+            textView.setTextAppearance(resId);
+
+    }
+
+    @Nullable
+    @Override
+    protected Parcelable onSaveInstanceState() {
+
+        Bundle outState = new Bundle();
+
+        outState.putParcelable(TAG_SUPER, super.onSaveInstanceState());
+        outState.putBoolean(TAG_EXPANDED, expanded);
+        return outState;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        if (state instanceof Bundle) {
+            Bundle saveInstanceState = (Bundle) state;
+            setExpanded(saveInstanceState.getBoolean(TAG_EXPANDED), false);
+            super.onRestoreInstanceState(saveInstanceState.getParcelable(TAG_SUPER));
+        } else {
+            super.onRestoreInstanceState(state);
+        }
+
+    }
 }

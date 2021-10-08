@@ -3,7 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Amin-pc/AndroidStudioProjects/MDMDowlaodManager/app/src/main/res/drawable/toolbar.xml" value="0.11481481481481481" />
+        <entry key="..\:/Users/Amin-pc/AndroidStudioProjects/MDMDowlaodManager/app/src/main/res/layout-land/activity_main_drawer.xml" value="0.18333333333333332" />
+        <entry key="..\:/Users/Amin-pc/AndroidStudioProjects/MDMDowlaodManager/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/Amin-pc/AndroidStudioProjects/MDMDowlaodManager/app/src/main/res/layout/content_main.xml" value="0.2" />
         <entry key="..\:/Users/Amin-pc/AndroidStudioProjects/MDMDowlaodManager/app/src/main/res/layout/expansion_header.xml" value="0.2" />
+        <entry key="..\:/Users/Amin-pc/AndroidStudioProjects/MDMDowlaodManager/app/src/main/res/layout/main_drawer_content.xml" value="0.2" />
+        <entry key="..\:/Users/Amin-pc/AndroidStudioProjects/MDMDowlaodManager/app/src/main/res/layout/toolbar.xml" value="0.2" />
       </map>
     </option>
   </component>

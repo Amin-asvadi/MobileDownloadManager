@@ -56,7 +56,17 @@ static final boolean autoConnect = true;
         String userAgent = SystemFacadeHelper.getSystemFacade(context).getSystemUserAgent();
 
         return (userAgent == null ? UserAgentUtils.defaultUserAgents[0].userAgent : userAgent);
+
     }
+    /* Limitation settings */
+static final int maActiveDownloads =3;
+   static final int maxDownloadsReties =5;
+// In Kib
+static final int speedLimit = 0;
+    /* Storage settings */
+static String saveDownloadsIn(@NonNull Context context){
+return "file://" + SystemFacadeHelper.getSystemFacade()
+}
 
 }
 

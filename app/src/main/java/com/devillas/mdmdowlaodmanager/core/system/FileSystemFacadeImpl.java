@@ -107,6 +107,15 @@ public class FileSystemFacadeImpl implements FileSystemFacade {
 
     @Override
     public void moveFile(@NonNull Uri srcDir, @NonNull String srcFileName, @NonNull Uri destDir, @NonNull String desFileName, boolean replace) throws IOException, FileAlreadyExistsException {
+        FsModule fsModule;
+        Uri srcFileUri, destFileUri;
+        fsModule = fsModuleResolver.resolveFsByUri(srcDir);
+        srcFileUri = fsModule.getFileUri(srcDir, srcFileName, false);
+        if (srcFileUri == null)
+            throw new FileNotFoundException("Source '" + srcFileName + "' from " + srcDir + " does not exists");
+
+        fsModule = fsModuleResolver.resolveFsByUri(destDir);
+        destFileUri = fsModule.getFileUri(destDir, desFileName, replace);
 
     }
 
